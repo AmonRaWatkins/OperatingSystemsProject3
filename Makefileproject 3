@@ -1,0 +1,22 @@
+CC = gcc
+CFLAGS = -Wall -g
+
+all: server server_client
+
+server: server.o list.o
+	$(CC) $(CFLAGS) -o server server.o list.o -lpthread
+
+server_client: server_client.o list.o
+	$(CC) $(CFLAGS) -o server_client server_client.o list.o -lpthread
+
+server.o: server.c server.h list.h
+	$(CC) $(CFLAGS) -c server.c
+
+server_client.o: server_client.c server.h list.h
+	$(CC) $(CFLAGS) -c server_client.c
+
+list.o: list.c list.h
+	$(CC) $(CFLAGS) -c list.c
+
+clean:
+	rm -f *.o server server_client
